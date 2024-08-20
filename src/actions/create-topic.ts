@@ -55,26 +55,25 @@ export async function createTopic(
     topic = await db.topic.create({
       data: {
         slug: result.data.name,
-        description: result.data.description
-      }
-    })
-  } catch (err:unknown) {
-    if( err instanceof Error){
+        description: result.data.description,
+      },
+    });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
       return {
         errors: {
-          _form: [err.message]
-        }
-      }
+          _form: [err.message],
+        },
+      };
     } else {
       return {
         errors: {
-          _form: ['Something went wrong']
-        }
-      }
+          _form: ["Something went wrong"],
+        },
+      };
     }
   }
 
-  revalidatePath('/')
+  revalidatePath("/");
   redirect(paths.topicShow(topic.slug));
-
 }
